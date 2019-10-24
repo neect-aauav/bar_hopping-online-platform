@@ -1,7 +1,7 @@
 <?php
 
 // Fetch from DB
-$conn = mysqli_connect("localhost", "u824612971_d99", "bboby1!Power!", "u824612971_rali920");
+//$conn = mysqli_connect();
 
 $sql = "SELECT * FROM Equipas;";
 $result = mysqli_query($conn, $sql);

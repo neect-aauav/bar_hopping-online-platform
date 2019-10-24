@@ -1,6 +1,6 @@
 <?php
 
-$conn = mysqli_connect("localhost", "u824612971_d99", "bboby1!Power!", "u824612971_rali920");
+//$conn = mysqli_connect();
 
 $postPosto = $_POST["posto"];
 $postOrdemCorreta = $_POST["ordemCorreta"];
