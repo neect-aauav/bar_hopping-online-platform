@@ -1,0 +1,194 @@
+@media only screen and (min-width: 480px) {
+  #content-container {
+    margin: 0 550px;
+  }
+  
+  #equipas-lista-arrows-wrapper {
+    display: none;
+  }
+}
+
+i {
+  border: solid #011897;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 7px;
+  transition: 0.4s;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(134deg);
+  -webkit-transform: rotate(134deg);
+}
+
+#equipas-lista-arrows-wrapper {
+    margin-top: -21px;
+    top: 200px;
+    position: absolute;
+    left: 3px;
+    pointer-events: none;
+}
+
+#equipas-lista-arrows-wrapper>i {
+    left: 8px;
+    position: absolute;
+    padding: 3px;
+}
+
+#equipas-lista-arrows-wrapper>.down {
+    top: 12px;
+}
+
+#content-container {
+    margin-top: 170px;
+}
+
+.centered-content {
+    margin-top: 0px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+}
+
+#equipas-lista {
+    transition: 0.4s;
+}
+
+.equipas-lista-fixed {
+    position: fixed;
+    bottom: 0;
+    background-color: #64F13B;
+    z-index: 1;
+    left: 1000px;
+    box-shadow: 0px 2px 7px 0px black;
+    width: 100%;
+}
+
+#equipas-lista>ul {
+    -webkit-overflow-scrolling:touch;
+    border: 1.5px solid #011897;
+    height: 40px;
+    text-align: center;
+    overflow-y: scroll;
+    padding-left: 16px;
+}
+
+#equipas-lista>ul>li {
+    display: inline-block;
+    padding: 10px;
+}
+
+.equipa-wrapper {
+    padding: 25px;
+    margin: 12px;
+    box-shadow: 0px 0px 4px -1px black;
+    border: 1.5px solid #011897;
+
+}
+
+.title {
+    text-align: right;
+}
+
+.title>li {
+    
+}
+
+.nome-equipa {
+    font-size: 40px;
+    font-weight: bolder; 
+}
+
+.curso {
+    font-size: 26px;    
+}
+
+.pontos {
+    font-size: 30px;
+    border-top: 2px solid #011897;
+    margin-top: 15px;
+    padding-top: 12px;    
+}
+
+.membros {
+    text-align: center;
+    margin: 35px 0;
+    border: 1.5px solid #011897;   
+}
+
+.nome-membro {
+    display: inline-block;
+    font-size: 15px;
+    padding: 10px;    
+}
+
+.postos {
+    text-align: center;
+    margin: 50px 21px; 
+}
+
+.postos>p {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.postos>li {
+    display: inline-block;
+    padding: 19px;
+    border: 1.5px solid #011897;
+    position: relative;
+    margin: 7px;  
+}
+
+.postos>li>p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.visitado {
+    background-color: #011897;
+}
+
+.visitado>p {
+    color: #64F13B;
+}
+
+.estatisticas {
+    
+}
+
+.estatisticas>li {
+    padding: 5px 0;
+    font-weight: bolder;
+}
+
+.gregar {
+    
+}
+
+.extras {
+    
+}
+
+.ovo {
+    text-align: right;
+    color: green;
+}
+
+

@@ -1,0 +1,388 @@
+body {
+    overflow-x: hidden;
+    margin: 0;
+    font-family: monospace;
+    background-color: #64F13B;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+a {
+    color: #011897;
+    text-decoration: none;
+}
+
+a:hover {
+     color: #011897; 
+     text-decoration: none; 
+     cursor: pointer;  
+}
+
+ul {
+    padding: 0;
+    margin-bottom: 0;
+}
+
+
+i {
+  border: solid #011897;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 7px;
+  transition: 0.4s;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(134deg);
+  -webkit-transform: rotate(134deg);
+}
+
+.centered-content {
+    text-align: center;
+}
+
+.super-centered-content {
+    margin-top: 0px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+}
+
+.title {
+    padding: 10px;
+    font-size: 30px;
+    font-weight: bolder;
+    border-top: 1.5px solid #011897;
+    margin-right: 50px !important;
+    margin-left: 50px !important;
+    padding-top: 35px;
+}
+
+li {
+    list-style-type: none;
+    color: #011897;
+}
+
+p {
+    color: #011897;
+}
+
+/* Barra de navegação */
+
+.admin-navbar-container {
+    background-color: #64F13B;
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    box-shadow: 0px 0px 5px 1px black;
+    z-index: 2;
+}
+
+.admin-navbar-wrapper {
+    position: relative;
+    top: 12%;
+    padding: 0 2px;
+}
+
+.admin-navbar {
+    padding: 10px 0px;
+}
+
+.admin-navbar>ul>li {
+    padding: 0 7px;
+    font-size: 17px;
+    font-weight: bolder;
+    display: inline-block;
+}
+
+.admin-navbar>ul>li>img {
+    margin-top: -6px;
+    width: 23px;
+}
+
+#navbar-left {
+    text-align: center;
+}
+
+#navbar-left>ul {
+}
+
+#navbar-right {
+    float: right;
+}
+
+#navbar-right>ul {
+    
+}
+
+#navbar-right>ul>li {
+    font-size: 14px;
+}
+
+/* END Barra de navegação */
+
+
+/* Settings da equipa */
+
+#equipas-wrapper {
+    
+}
+
+#equipas-dropdown-wrapper {
+    margin-top: 25px;
+}
+
+#equipas-dropdown-button {
+    transition: 0.5s;
+    margin: 0;
+    border-top: 0;
+}
+
+#equipas-dropdown-arrow {
+    
+}
+
+#equipas-wrapper>ul {
+    margin-top: 25px;
+    height: 170px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    box-shadow: inset 0px 0px 9px -2px black;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+#equipas-wrapper>ul>li {
+    padding: 5px 0;
+    font-size: 18px;
+    border: 1.1px solid #011897;
+}
+
+.equipa-selecionada-wrapper {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.equipa-selecionada-display {
+    color: #64F13B;
+    font-size: 22px;
+    background-color: #011897;
+    font-weight: bold;
+    border: 1.2px solid #64F13B;
+}
+
+.equipa-selecionada {
+    filter: blur(0.7px);
+    background-color: gray;
+    color: white;
+}
+
+/* Fim de Settings da equipa */
+
+
+/* Imício lista de postos */
+
+#postos-container {
+    margin-top: 30px;
+}
+
+#postos-wrapper {
+    padding: 25px 65px;
+}
+
+#postos-wrapper>li {
+    display: inline-block;
+    border: 2px solid #011897;
+    width: 55px;
+    height: 55px;
+    margin: 5px;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    transition: 0.4s;
+}
+
+.posto-visitado {
+    background-color: #011897;
+    border-radius: 20px !important;
+    z-index: 1 !important;
+    pointer-events: none;
+}
+
+.posto-visitado>p {
+    color: #64F13B;
+}
+
+.posto-clicado {
+    background-color: #5da899;
+    color: white;
+    border-radius: 20px !important;
+    z-index: 1 !important;
+    pointer-events: none;
+}
+
+.optionsWrapper {
+    margin: 25px;
+    border: 1.5px solid #011897;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.options {
+    font-size: 18px;
+    font-weight: bolder;
+    margin: 0;
+    padding: 10px;
+}
+
+.quantos {
+    text-align: left;
+    font-size: 22px;
+    font-weight: bolder;
+    margin-left: 28px;
+    display: inline-block;
+    margin: 0;
+}
+
+#quantos-arrow-wrapper {
+    margin-left: 6px;
+    width: 25px;
+    height: 25px;
+    border: 1.5px solid #011897;
+    position: relative;
+    top: -3px;
+}
+
+#quantos-arrow {
+    padding: 3px;
+    margin-top: 5px;
+    transition: 0.4s;
+}
+
+.nmr-gregar-li {
+    border: 1.2px solid #011897;
+    height: 37px;
+    width: 37px;
+    margin: 7px 7px;
+    position: relative;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.nmr-gregar-li-clicked {
+    border: 1.2px solid #011897;
+    height: 37px;
+    width: 37px;
+    margin: 7px 7px;
+    box-shadow: unset;
+    background-color: #5da899;
+    position: relative;
+    font-weight: bold;
+    display: inline-block;
+}
+
+/* Fim da lista de postos */
+
+
+/* Início do Extra */
+
+#quantosUl>li {
+    display: inline-block;
+    margin: 15px;
+}
+
+.extra-clicker {
+    border: 1.5px solid #011897;
+    width: 33px;
+    text-align: center;
+    border-radius: 30px;
+}
+
+/* Fim do Extra */
+
+
+/* Início da Observação */
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #011897;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #011897;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #011897;
+}
+
+#observacaoInput {
+    resize: none;
+    padding-left: 10px;
+    margin-bottom: 15px;
+    background-color: #64F13B;
+    border: 1.5px solid #011897;
+    color: #011897;
+    font-weight: bolder;
+}
+
+/* Fim da Observação */
+
+
+#send-button {
+    width: 90px;
+    height: 35px;
+    position: relative;
+    margin: 30px auto;
+    transition: 0.4s;
+    border: 1.2px solid #011897;
+    font-size: 17px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+#send-button>p {
+    pointer-events: none;
+}
+
+
+/* RESPONSIVENESS */
+
+@media only screen and (max-width: 373px) {
+    .admin-navbar-container {
+        height: 130px;
+    }
+}
+
+@media only screen and (min-width: 480px) {
+  #lista-equipas {
+    margin: 0 550px;
+  }
+  
+  .equipa-selecionada-wrapper {
+    padding: 0 550px;
+  }
+  
+  #optionsContainer {
+    padding: 0 550px;
+  }
+}
