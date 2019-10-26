@@ -3,6 +3,7 @@ body {
     margin: 0;
     font-family: monospace;
     background-color: #64F13B;
+    filter: blur(5px);
 }
 
 html {
@@ -91,9 +92,10 @@ p {
     background-color: #64F13B;
     position: fixed;
     width: 100%;
-    height: 100px;
+    height: 60px;
     box-shadow: 0px 0px 5px 1px black;
     z-index: 2;
+    transition: 0.4s;
 }
 
 .admin-navbar-wrapper {
@@ -113,7 +115,7 @@ p {
     display: inline-block;
 }
 
-.admin-navbar>ul>li>img {
+.admin-navbar>ul>li>a>img {
     margin-top: -6px;
     width: 23px;
 }
@@ -139,6 +141,106 @@ p {
 
 /* END Barra de navegação */
 
+/* Side navbar */
+
+#side-navbar-container {
+    position: fixed;
+    height: 100%;
+    width: 160px;
+    z-index: 2;
+    background: #64F13B;
+    border-right: 2px solid white;
+    margin-top: 60px;
+    box-shadow: 0px 4px 5px 1px white;
+    transition: 0.4s;
+    left: -167px;
+}
+
+#side-navbar-ul {
+    text-align: center;
+    font-size: 13px;
+}
+
+#side-navbar-ul>li {
+    border-bottom: 1.5px solid #011897;
+    padding: 1px 0;
+}
+
+#equipa {
+    font-weight: bolder;
+    font-size: 15px;
+    background-color: #011897;
+    color: #64F13B;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 2px solid white;
+    border-right: 1px solid white;
+}
+
+.pontos {
+    font-style: italic;
+    font-weight: bolder !important;
+    color: black !important;
+}
+
+.option {
+    
+}
+
+.option>ul {
+    
+}
+
+.option>ul>li {
+    padding: 1px 0;
+    font-weight: bolder;
+}
+
+.option>ul>li>p {
+    margin: 0;
+    font-weight: 100;
+}
+
+#total {
+    font-weight: bolder;
+    border-bottom: none !important;
+}
+
+#total>.pontos {
+    font-size: 16px;
+}
+
+#arrow-wrapper {
+    position: absolute;
+    right: -36px;
+    background-color: #011897;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    top: 37%;
+    opacity: 0.9;
+    border: 2.5px solid white;
+    transition: 0.3s;
+}
+
+#arrow {
+    margin-top: 9px;
+    margin-left: -5px;
+    border-color: white;
+}
+
+#dark-back {
+    background-color: black;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+
+#posto {
+    font-size: 25px;
+    color: white;
+}
 
 /* Settings da equipa */
 
@@ -147,7 +249,6 @@ p {
 }
 
 #equipas-dropdown-wrapper {
-    margin-top: 25px;
 }
 
 #equipas-dropdown-button {
@@ -168,6 +269,7 @@ p {
     box-shadow: inset 0px 0px 9px -2px black;
     margin-left: 25px;
     margin-right: 25px;
+    font-weight: bolder;
 }
 
 #equipas-wrapper>ul>li {
@@ -178,7 +280,7 @@ p {
 
 .equipa-selecionada-wrapper {
     text-align: center;
-    margin-top: 10px;
+    margin: 10px 23px;
 }
 
 .equipa-selecionada-display {
@@ -305,7 +407,7 @@ p {
 
 /* Início do Extra */
 
-#quantosUl>li {
+#quantosUl>li, #quantosUlMin>li, #quantosUlFaltas>li {
     display: inline-block;
     margin: 15px;
 }
@@ -316,7 +418,6 @@ p {
     text-align: center;
     border-radius: 30px;
 }
-
 /* Fim do Extra */
 
 
@@ -367,9 +468,13 @@ p {
 
 /* RESPONSIVENESS */
 
-@media only screen and (max-width: 373px) {
+@media only screen and (max-width: 402px) {
     .admin-navbar-container {
-        height: 130px;
+        height: 90px;
+    }
+    
+    #side-navbar-container {
+        margin-top: 90px;
     }
 }
 

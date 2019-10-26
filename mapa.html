@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="styles/bootstrap.css">
         <link href="styles/navbar.css" rel="stylesheet" type="text/css" />
         <link href="styles/mapa.css" rel="stylesheet" type="text/css" />
+        <link href="styles/footer.css" rel="stylesheet" type="text/css" />
     </head>
     
     <body>
@@ -20,7 +21,7 @@
                     <a href="/index">Ralli9/20</a>
                 </div>
                 <div id="navbar-right">
-                    <ul>
+                    <ul id="navbar-ul">
                         <li><a href="/equipas">Equipas</a></li>
                         <li><a href="/postos">Postos</a></li>
                         <li><a href="/premios">Prémios</a></li>
@@ -31,10 +32,48 @@
                 </div>
             </div>
         </div>
+        
+        <div style="margin-top: 175px; text-align: center; padding: 20px;">
+            <iframe 
+              width="100%" 
+              height="400px" 
+              frameborder="0" 
+              scrolling="no" 
+              marginheight="0" 
+              marginwidth="0" 
+              src="https://maps.google.com/maps?q=40.6356663,-8.6559577&hl=es;z=16&output=embed">
+             </iframe>
+         </div>
+
     
+        <footer style="border-top: 3px solid white;">
+            <ul>
+                <li>
+                    <ul id="footer-menu">
+                        <li><a href="equipas">Equipas</bt></li>
+                        <li><a href="postos">Postos</bt></li>
+                        <li><a href="premios">Prémios</bt></li>
+                        <li><a href="mapa">Mapa</bt></li>
+                        <li><a href="contacto">Contacto</bt></li>
+                        <li><a href="acerca">Acerca</bt></li>
+                        <li><a href="admin"><img src="styles/images/lock.png" style="width: 22px;margin-top: 6px;"></a></li>
+                    </ul>
+                </li>
+                <li style="border-top: 1.2px solid white; padding: 20px 0;">
+                    <ul id="nucleos">
+                        <li><a href="contacto#naessua"><img src="styles/images/NAE-ESSUA_AC_4.png" alt="NAE-ESSUA LOGO"></bt></li>
+                        <li><a href="contacto#naeisca"><img src="styles/images/NAE-ISCAA_AC_4.png" alt="NAE-ISCA LOGO"></bt></li>
+                        <li><a href="contacto#neg"><img src="styles/images/NEG_AC_4.png" alt="NEG LOGO"></bt></li>
+                        <li><a href="contacto#neect"><img src="styles/images/NEECT_AC_4.png" alt="NEECT LOGO"></bt></li>
+                    </ul>
+                </li>
+            </ul>
+        </footer>
+    
+        <script src="scripts/jquery.js"></script>
         <script src="scripts/mapa.js"></script>
         <script src="scripts/navbar.js"></script>
-        <script src="scripts/jquery.js"></script>
+        <script src="scripts/footer.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
     

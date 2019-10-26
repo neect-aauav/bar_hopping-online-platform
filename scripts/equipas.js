@@ -1,3 +1,16 @@
+// desafio final
+
+// ESSUAr toda a noite!!
+pontosArray[6] = pontosArray[6] + 50 + 50;
+pontosArray[3] = pontosArray[3] + 50 + 50;
+pontosArray[1] = pontosArray[1] + 50 + 0;
+pontosArray[2] = pontosArray[2] + 0 + 0;
+pontosArray[0] = pontosArray[0] + 50 + 50;
+pontosArray[4] = pontosArray[4] + 0 + 0;
+pontosArray[7] = pontosArray[7] + 50 + 50;
+pontosArray[5] = pontosArray[5] + 50 + 50;
+pontosArray[8] = pontosArray[8] + 50 + 0;
+
 var listaEquipasUl = document.getElementById("lista-equipas-ul");
 var equipasLista = document.getElementById("equipas-lista");
 var scrolledPage=false;
@@ -75,8 +88,6 @@ for (var i=0; i<extraArray.length; i++) {
     }
     extra.push(g);
 }
-
-var ovo = [true, true, false, true, false];
 
 console.log(equipas);
 console.log(postosOrdem);
@@ -237,22 +248,49 @@ for (var i=0; i<equipas.length; i++) {
     var ovoLi = document.createElement("li");
     statsUl.appendChild(ovoLi);
     ovoLi.style.textAlign="right";
-    if (ovo[i]) {
-        ovoLi.innerHTML="Ainda têm o ovo!";
-        ovoLi.style.color="green";
-    }
-    else {
-        ovoLi.innerHTML="Já não têm o ovo!"
-        ovoLi.style.color="red";
+    console.log(ovoValue);
+    if (ovoValue !== null) {
+        if (ovoValue[i] !== null) {
+            if (ovoValue[i] == "true") {
+                console.log("true");
+                ovoLi.innerHTML="Ainda têm o ovo!";
+                ovoLi.style.color="green";
+            }
+            else {
+                console.log("false");
+                ovoLi.innerHTML="Já não têm o ovo!"
+                ovoLi.style.color="red";
+            }    
+        }
+        else {
+            console.log("null");
+            ovoLi.innerHTML="Ainda têm o ovo!";
+            ovoLi.style.color="green";
+        }
     }
 }
 
 var contentCont = document.getElementById("content-container");
+var body = document.getElementsByTagName("BODY")[0];
 
 $(document).ready(function() {
     if(window.innerWidth > 480) {
         contentCont.style.margin="0px "+(window.innerWidth/4.3)+"px";
         contentCont.style.marginTop="170px";
+    }
+    
+    var divsOfBody = document.body.querySelectorAll("div");
+    console.log(divsOfBody);
+    if (divsOfBody.length < 8) {
+        var div = document.createElement("div");
+        document.body.insertBefore(div, document.getElementsByTagName("footer")[0]);
+        div.style.textAlign="center";
+        div.style.marginTop="40px";
+        div.style.fontSize="17px";
+        div.style.marginBottom="225px";
+        var p = document.createElement("p");
+        div.appendChild(p);
+        p.innerHTML="Sem equipas";
     }
 });
 

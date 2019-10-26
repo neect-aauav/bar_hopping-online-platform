@@ -2,7 +2,7 @@
     // Fetch from db Equipas
     //$conn = mysqli_connect();
 
-    $sql = "SELECT * FROM Equipas;";
+    $sql = "SELECT * FROM _Equipas;";
     $result = mysqli_query($conn, $sql);
 
     $nome = array();
@@ -29,6 +29,18 @@
             }
         }
         
+        if ($finalNome == "Drink++") {
+            $finalNome = "Drink__";
+        }
+        
+        if ($finalNome === "GRUA_-_Grupo_de_Rallys_da_Universidade_de_Aveiro") {
+            $finalNome = "GRUA__Grupo_de_Rallys_da_Universidade_de_Aveiro";
+        }
+        
+         if ($finalNome === "ESSUAr_toda_a_noite!!") {
+            $finalNome = "ESSUAr_toda_a_noite__";
+        }
+        
         $total = 0;
         $sql2 = "SELECT * FROM $finalNome;";
         $result2 = mysqli_query($conn, $sql2);
@@ -52,7 +64,8 @@
         <!-- Bootstrap minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="styles/bootstrap.css">
-        <link href="styles/index.css" rel="stylesheet" type="text/css" /> <!-- type é importante para alguns browsers reconhecerem o css -->
+        <link href="styles/index.css" rel="stylesheet" type="text/css" />
+        <link href="styles/footer.css" rel="stylesheet" type="text/css" />
     </head>
   
     <body>
@@ -79,17 +92,8 @@
             <div id="ranking-container">
                 <div id="ranking-wrapper">
                 <p id="ranking-title">Ranking</p>
-                <div id="loading-bar"></div>
+                <div style="color: purple; padding: 10px;">(Ainda faltam os pontos para a equipa com o nome mais original. A ser decidido...)</div>
                 <ul id="ranking-list">
-                   <!-- <li id="first-place"><p class="lugar">1</p>Monstros<p class="pontos">2150 pts</p></li>
-                    <li id="second-place"><p class="lugar">2</p>Monstros<p class="pontos">2000 pts</p></li>
-                    <li id="third-place"><p class="lugar">3</p>Monstros<p class="pontos">1850 pts</p></li>
-                    <li><p class="lugar">4</p>Monstros<p class="pontos">1025 pts</p></li>
-                    <li><p class="lugar">5</p>Monstros<p class="pontos">105 pts</p></li>
-                    <li><p class="lugar">6</p>Monstros<p class="pontos">20 pts</p></li>
-                    <li><p class="lugar">7</p>Monstros<p class="pontos">-35 pts</p></li>
-                    <li><p class="lugar">8</p>Monstros<p class="pontos">-100 pts</p></li>
-                    <li><p class="lugar">9</p>Monstros<p class="pontos">-1200 pts</p></li> -->
                 </ul>
                 </div>
             </div>
@@ -106,19 +110,33 @@
             
         </script> 
           
-        <footer>
-             <ul>
-                <li><a href="/equipas">Equipas</a></li>
-                <li><a href="/postos">Postos</a></li>
-                <li><a href="/premios">Prémios</a></li>
-                <li><a href="/mapa">Mapa</a></li>
-                <li><a href="/contacto">Contacto</a></li>
-                <li><a href="/acerca">Acerca</a></li>
+        <footer style="border-top: 3px solid white;">
+            <ul>
+                <li>
+                    <ul id="footer-menu">
+                        <li><a href="equipas">Equipas</bt></li>
+                        <li><a href="postos">Postos</bt></li>
+                        <li><a href="premios">Prémios</bt></li>
+                        <li><a href="mapa">Mapa</bt></li>
+                        <li><a href="contacto">Contacto</bt></li>
+                        <li><a href="acerca">Acerca</bt></li>
+                        <li><a href="admin"><img src="styles/images/lock.png" style="width: 22px;margin-top: 6px;"></a></li>
+                    </ul>
+                </li>
+                <li style="border-top: 1.2px solid white; padding: 20px 0;">
+                    <ul id="nucleos">
+                        <li><a href="contacto#naessua"><img src="styles/images/NAE-ESSUA_AC_4.png" alt="NAE-ESSUA LOGO"></bt></li>
+                        <li><a href="contacto#naeisca"><img src="styles/images/NAE-ISCAA_AC_4.png" alt="NAE-ISCA LOGO"></bt></li>
+                        <li><a href="contacto#neg"><img src="styles/images/NEG_AC_4.png" alt="NEG LOGO"></bt></li>
+                        <li><a href="contacto#neect"><img src="styles/images/NEECT_AC_4.png" alt="NEECT LOGO"></bt></li>
+                    </ul>
+                </li>
             </ul>
         </footer>
         
         <script src="scripts/jquery.js"></script>
         <script src="scripts/index.js"></script>
+        <script src="scripts/footer.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 </html>

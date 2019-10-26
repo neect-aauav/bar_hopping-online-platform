@@ -1,3 +1,25 @@
+// SIDE NAVBAR VARS
+
+var equipaNome = document.getElementById("equipa");
+var postoNmr = document.getElementById("posto");
+var oC_bool = document.getElementById("oC_bool");
+var oC_pts = document.getElementById("oC_pts");
+var cM_bool = document.getElementById("cM_bool");
+var cM_qnt = document.getElementById("cM_qnt");
+var cM_pts = document.getElementById("cM_pts");
+var cD_bool = document.getElementById("cD_bool");
+var cD_pts = document.getElementById("cD_pts");
+var aG_bool = document.getElementById("aG_bool");
+var aG_qnt = document.getElementById("aG_qnt");
+var aG_pts = document.getElementById("aG_pts");
+var bE_bool = document.getElementById("bE_bool");
+var bE_qnt = document.getElementById("bE_qnt");
+var bE_pts = document.getElementById("bE_pts");
+var nE_bool = document.getElementById("nE_bool");
+var nE_qnt = document.getElementById("nE_qnt");
+var nE_pts = document.getElementById("nE_pts");
+var total_pts = document.getElementById("total_pts");
+
 // DROPDOWN COM O NOME DAS EQUIPAS
 
 var equipaDropdownWrapper = document.getElementById("equipas-dropdown-wrapper");
@@ -10,8 +32,15 @@ var postosFromDBElem = [];
 var postosWrapper = document.getElementById("postos-wrapper");
 var equipaIsInOrder=true;
 var ordemFromFB;
+var equipasUl = document.createElement("ul");
+var equipa;
 
 equipaDropdownWrapper.addEventListener("click", function() {
+    var equipasElems = equipasUl.querySelectorAll("li");
+    for (var i=0; i<equipasElems.length; i++) {
+        equipasUl.removeChild(equipasElems[i]);
+    }
+    
     if (!equipaArrowClicked) {
         equipaDropdownArrow.classList.add("up");
         equipaDropdownArrow.classList.remove("down");
@@ -26,15 +55,15 @@ equipaDropdownWrapper.addEventListener("click", function() {
     }
 });
 
-var equipasUl = document.createElement("ul");
-var equipa;
-
 function displayEquipas() {
     equipasWrapper.appendChild(equipasUl);
     equipasUl.id="lista-equipas";
+    console.log(listaEquipas);
     for (var i=0; i<listaEquipas.length; i++) {
         equipa = document.createElement("li");
         equipa.appendChild(document.createTextNode(listaEquipas[i]));
+        equipa.style.width="unset";
+        equipa.style.height="unset";
         equipasUl.appendChild(equipa);
     }
 }
@@ -60,22 +89,50 @@ var lastPostoString;
 var currentPosto;
 var postosOrder = ordemArray;
 var postoValue;
+var selectedEquipaNameDisplay;
+var postosTitleWrapper = document.getElementById("postos-title-wrapper");
+var tbdText;
+var lastTarget;
+var clickedOnEquipasUl=false;
 
 function selectEquipa(e) {
     // scroll down after clicking
-    window.scrollTo(0, 300);
+    //window.scrollTo(0, 300);
+    console.log("here");
     
     // disponibilizar os pointer events depois de ter escolhido uma equipa
     postosWrapper.style.pointerEvents="unset";
+    
+    if (lastPostoString != null) {
+        selectedEquipaWrapper.removeChild(selectedEquipaNameDisplay);
+    }
     
     if (equipasWrapper.contains(selectedEquipaWrapper)) {
         equipasWrapper.removeChild(selectedEquipaWrapper);
     }
     
     if (e.target !== e.currentTarget) {
+
+        e.target.style.backgroundColor="#5da899";
+        e.target.style.boxShadow="inset 0px 0px 7px -2px black";
+        e.target.style.color="black";
+
+        if (lastTarget != null && lastTarget!=e.target) {
+            lastTarget.style.backgroundColor="unset";
+            lastTarget.style.boxShadow="unset";
+            lastTarget.style.color="#011897";
+        }
+        
+        lastTarget = e.target;
+        
+        if (tbdText != null) {
+            postosTitleWrapper.removeChild(tbdText);    
+        }
+        
         clickedEquipa = e.target.innerHTML;
-        console.log(clickedEquipa);
         if (e.target.innerHTML != lastPostoString) {
+            
+            console.log(clickedEquipa);
             
             if (postosWrapper.querySelectorAll("p")[0].length>0) {
                 postosContainer.removeChild(orderMsg);   
@@ -93,22 +150,25 @@ function selectEquipa(e) {
         
         var equipaIndex;
         
+        
         for (var i=0; i<listaEquipas.length; i++) {
             if (clickedEquipa == listaEquipas[i]) {
                 equipaIndex = i;
+                
+                 equipaNome.innerHTML = clickedEquipa;
+                
                 // correr o array info com a informação das equipas
                 for (var j=0; j<info.length; j++) {
                    postosFromDB = info[i][1]; 
                 }
                 
                 // activate postos vindos da DB
-                for (var i=0; i<postos.length; i++) {
-                    currentPosto = postos[i];
-                    console.log(currentPosto);
+                for (var ii=0; ii<postos.length; ii++) {
+                    currentPosto = postos[ii];
                     var postoValueHTML = currentPosto.innerHTML;
                     postoValue = parseInt(postoValueHTML.split(">")[1].split("<")[0],10);
-                    for (var j=0; j<postosFromDB.length; j++) {
-                        if (postoValue == postosFromDB[j]) {
+                    for (var jj=0; jj<postosFromDB.length; jj++) {
+                        if (postoValue == postosFromDB[jj]) {
                             currentPosto.classList.add("posto-visitado");
                             postosFromDBElem.push(currentPosto);
                         }
@@ -119,20 +179,25 @@ function selectEquipa(e) {
                 ordemFromDB = ordemFromFBString[0].split(".");
                 // adicionar ordem dos postos
                 var postosTitle = document.getElementById("postos-title");
-                var titleString = "Postos (";
-                console.log(postosOrder);
+                var titleString="Postos (";
                 var equipaID = getEquipaId(clickedEquipa);
-                console.log(equipaID);
-                console.log(postosOrder[equipaID]);
-                console.log(postosOrder[equipaID].length); // tenho que remover os pontos entre os números para contar bem
-                for (var a=0; a<postosOrder[equipaID].split(".").length; a++) {
-                    if (a<(postosOrder[equipaID].split(".").length-1)) {
-                       titleString+=(ordemFromDB[a]+"|"); 
+                var orderSplitted = postosOrder[equipaID].split(".");
+                for (var a=0; a<orderSplitted.length; a++) {
+                    if (orderSplitted.length>1) {
+                        if (a<(orderSplitted.length-1)) {
+                           titleString+=(orderSplitted[a]+"|"); 
+                        }
+                        else {
+                            titleString+=(orderSplitted[a]+")");   
+                        }
                     }
                     else {
-                        titleString+=(ordemFromDB[a]+")");   
+                        titleString="Postos";
+                        tbdText = document.createElement("p");
+                        postosTitleWrapper.appendChild(tbdText);
+                        tbdText.innerHTML="("+postosOrder[equipaID]+")";
+                        tbdText.style.fontSize="22px";
                     }
-                    console.log(titleString);
                 }
                 postosTitle.innerHTML = titleString;
                 
@@ -165,11 +230,12 @@ function selectEquipa(e) {
     
     selectedEquipaWrapper.classList.add("equipa-selecionada-wrapper");
     equipasWrapper.appendChild(selectedEquipaWrapper);
-    var selectedEquipaNameDisplay = document.createElement("p");
+    selectedEquipaNameDisplay = document.createElement("p");
     selectedEquipaNameDisplay.appendChild(document.createTextNode("> "+clickedEquipa+" <"));
     selectedEquipaNameDisplay.classList.add("equipa-selecionada-display");
     selectedEquipaWrapper.appendChild(selectedEquipaNameDisplay);
     lastPostoString = e.target.innerHTML;
+    clickedOnEquipasUl=false;
 }
 
 // FIM DO DROPDOWN COM O NOME DAS EQUIPAS
@@ -185,13 +251,18 @@ var lastPosto;
 var postosFromDB;
 var isFromDB=false;
 var optionsDiv;
-var optionsBooleans = [false,false,false,false,false];
-var optionsPoints = [30,10,0,0,0];
+var optionsBooleans = [false,true,false,false,false,false,true];
+var optionsPoints = [30,0,0,0,0,0,0];
 var totalPoints = 0;
 var optionsCounter=0;
 var optionsContainer = document.createElement("div");
 
 postosWrapper.addEventListener('click', selectPosto, false);
+var firstClick=true;
+var hasDisplayedOptions=false;
+var ovoElem;
+var completouDesElem;
+var nmrCorretoElems;
 
 function selectPosto(e) {
     if (optionsCounter == 4) {
@@ -201,18 +272,36 @@ function selectPosto(e) {
         
         // remove from lastPosto clicked
         if (lastPosto != null) {
-            posto = postos[(lastPosto)-1];
-            posto.classList.remove("posto-clicado"); 
-
-            var divs = optionsContainer.querySelectorAll("div");
-            for (var i=0; i<divs.length; i++) {
-                optionsContainer.removeChild(divs[i]);
-            }
+            lastPosto.classList.remove("posto-clicado"); 
         }
         
         // check new clickedPosto
         var currentPostoHTML = e.target.innerHTML;
         currentPostoInt = parseInt(currentPostoHTML.split(">")[1].split("<")[0],10);
+        
+        postoNmr.innerHTML=currentPostoInt;
+        
+        if (firstClick) {
+            // values on side navbar
+            oC_bool.innerHTML="Não";
+            oC_pts.innerHTML="-30pts";
+            cM_bool.innerHTML="Sim";
+            cM_pts.innerHTML="0pts";
+            cD_bool.innerHTML="Não";
+            cD_pts.innerHTML="0pts";
+            aG_bool.innerHTML="Não";
+            aG_qnt.innerHTML="0";
+            aG_pts.innerHTML="0pts";
+            bE_bool.innerHTML="Não";
+            bE_qnt.innerHTML="0";
+            bE_pts.innerHTML="0pts";
+            nE_bool.innerHTML="Sim";
+            nE_qnt.innerHTML="0";
+            nE_pts.innerHTML="0pts";
+            total_pts.innerHTML="-30pts";
+            firstClick=false;
+        }
+        
         posto = postos[currentPostoInt-1];
         
         // check if is from DB
@@ -224,17 +313,26 @@ function selectPosto(e) {
             }
         }
         
-        if (!isFromDB) {
-            posto.classList.add("posto-clicado");
-            postosContainer.appendChild(optionsContainer);
-            optionsContainer.id="optionsContainer";
-            optionsContainer.appendChild(createOption("A equipa está a seguir a ordem correta?"));
-            optionsContainer.appendChild(createOption("A equipa bebeu o consumo mínimo?"));
-            optionsContainer.appendChild(createOption("A equipa completou o desafio?"));
-            optionsContainer.appendChild(createOption("Algum elemento da equipa gregou?"));
-            optionsContainer.appendChild(createOption("A equipa bebeu extras?"));
+        posto.classList.add("posto-clicado");
+        postosContainer.appendChild(optionsContainer);
+        optionsContainer.id="optionsContainer";
+        
+        if (!hasDisplayedOptions) {
+             if (!isFromDB) {
+                optionsContainer.appendChild(createOption("A equipa está a seguir a ordem correta?"));
+                optionsContainer.appendChild(createOption("A equipa não bebeu o consumo mínimo?"));
+                completouDesElem = createOption("A equipa completou o desafio?");
+                optionsContainer.appendChild(completouDesElem);
+                optionsContainer.appendChild(createOption("Algum elemento da equipa gregou?"));
+                optionsContainer.appendChild(createOption("A equipa bebeu extras?"));
+                ovoElem = createOption("A equipa ainda tem o ovo intacto?");
+                optionsContainer.appendChild(ovoElem);
+                optionsContainer.appendChild(createOption("A equipa não tem o número correto de elementos?"));
+                hasDisplayedOptions=true;
+            }    
         }
-        lastPosto = currentPosto;
+        
+        lastPosto = e.target;
         isFromDB=false; 
     }
 }
@@ -263,11 +361,23 @@ var howManyP = document.createElement("li");
 var dropdownGregarP = document.createElement("li");
 var gregarArrow = document.createElement("i");
 var howManyExtra = document.createElement("ul");
+var howManyMin = document.createElement("ul");
+var howManyFaltas = document.createElement("ul");
 var howManyExtraP = document.createElement("li");
+var howManyMinP = document.createElement("li");
+var howManyFaltasP = document.createElement("li");
 var howManyExtraValue = document.createElement("li");
 var howManyExtraClicker = document.createElement("li");
 var howManyExtraIncrement = document.createElement("li");
 var howManyExtraDecrement = document.createElement("li");
+var howManyMinValue = document.createElement("li");
+var howManyMinClicker = document.createElement("li");
+var howManyMinIncrement = document.createElement("li");
+var howManyMinDecrement = document.createElement("li");
+var howManyFaltasValue = document.createElement("li");
+var howManyFaltasClicker = document.createElement("li");
+var howManyFaltasIncrement = document.createElement("li");
+var howManyFaltasDecrement = document.createElement("li");
 var elem;
 var parentElem;
 var nmrOption;
@@ -275,6 +385,8 @@ var clickedOptions = [];
 var clickedDropdown=false;
 var liDiv = document.createElement("ul");
 var extraCounter=0;
+var minCounter=0;
+var faltasCounter=0;
 
 function optionsSelect(e) {
     if (e.target !== e.currentTarget) {
@@ -285,23 +397,61 @@ function optionsSelect(e) {
         nmrOption = e.target.id.split("n")[1];
         if (!clickedOptions.includes(nmrOption)) {
             
-            parentElem.style.backgroundColor="#5da899";
-            parentElem.style.color="#011897";
+            if (parentElem.id !== "optionsContainer" && parentElem != howManyExtraClicker) {
+                parentElem.style.backgroundColor="#5da899";
+                parentElem.style.color="#011897";    
+            }
             
             
             if (nmrOption == 1) {
-                optionsPoints[nmrOption-1] = 0;
+                optionsPoints[0] = 0;
+                oC_bool.innerHTML="Sim";
+                oC_pts.innerHTML="0pts";
+                setTotal();
             }
             
             if (nmrOption == 2) {
-                optionsPoints[nmrOption-1] = 0;
+                cM_bool.innerHTML="Não";
+                optionsContainer.insertBefore(howManyMin, completouDesElem);
+                howManyMin.appendChild(howManyMinP);
+                howManyMin.style.marginLeft="50px";
+                howManyMin.style.marginRight="50px";
+                howManyMin.id="quantosUlMin";
+                howManyMinP.innerHTML="Quantos?";
+                howManyMinP.classList.add("quantos");
+                howManyMin.appendChild(howManyMinValue);
+                minCounter=1;
+                optionsPoints[1]=10;
+                cM_qnt.innerHTML=minCounter;
+                cM_pts.innerHTML = "-"+optionsPoints[1]+"pts";
+                setTotal();
+                howManyMinValue.innerHTML=minCounter;
+                howManyMinValue.style.borderBottom="2px solid #011897";
+                howManyMin.appendChild(howManyMinClicker);
+                howManyMinClicker.style.borderRadius="20px";
+                howManyMinClicker.appendChild(howManyMinIncrement);
+                howManyMinIncrement.innerHTML="+";
+                howManyMinIncrement.id="min-increment";
+                howManyMinValue.classList.add("quantos");
+                howManyMinIncrement.classList.add("quantos");
+                howManyMinIncrement.classList.add("extra-clicker");
+                howManyMinClicker.appendChild(howManyMinDecrement);
+                howManyMinDecrement.innerHTML="-";
+                howManyMinDecrement.id="min-decrement";
+                howManyMinDecrement.classList.add("quantos");
+                howManyMinDecrement.classList.add("extra-clicker");
+                howManyMinDecrement.style.marginLeft="8px";
             }
             
             if (nmrOption == 3) {
                 optionsPoints[nmrOption-1] = 50;
+                cD_bool.innerHTML="Sim";
+                cD_pts.innerHTML="+50pts";
+                setTotal();
             }
             
             if (nmrOption == 4) {
+                aG_bool.innerHTML="Sim";
                 // "Quantos?"
                 var optionsList = optionsContainer.querySelectorAll("div");
                 optionsContainer.insertBefore(howManyDiv, optionsList[4]);
@@ -324,7 +474,8 @@ function optionsSelect(e) {
             }
             
             if (nmrOption == 5) {
-                optionsContainer.appendChild(howManyExtra);
+                bE_bool.innerHTML="Sim";
+                optionsContainer.insertBefore(howManyExtra, ovoElem);
                 howManyExtra.appendChild(howManyExtraP);
                 howManyExtra.style.marginLeft="50px";
                 howManyExtra.style.marginRight="50px";
@@ -334,6 +485,9 @@ function optionsSelect(e) {
                 howManyExtra.appendChild(howManyExtraValue);
                 extraCounter=1;
                 optionsPoints[4]=20;
+                bE_qnt.innerHTML=extraCounter;
+                bE_pts.innerHTML = "+"+optionsPoints[4]+"pts";
+                setTotal();
                 howManyExtraValue.innerHTML=extraCounter;
                 howManyExtraValue.style.borderBottom="2px solid #011897";
                 howManyExtra.appendChild(howManyExtraClicker);
@@ -350,6 +504,39 @@ function optionsSelect(e) {
                 howManyExtraDecrement.classList.add("quantos");
                 howManyExtraDecrement.classList.add("extra-clicker");
                 howManyExtraDecrement.style.marginLeft="8px";
+            }
+            
+            if (nmrOption == 7) {
+                nE_bool.innerHTML="Não";
+                optionsContainer.appendChild(howManyFaltas);
+                howManyFaltas.appendChild(howManyFaltasP);
+                howManyFaltas.style.marginLeft="50px";
+                howManyFaltas.style.marginRight="50px";
+                howManyFaltas.id="quantosUlFaltas";
+                howManyFaltasP.innerHTML="Quantos?";
+                howManyFaltasP.classList.add("quantos");
+                howManyFaltas.appendChild(howManyFaltasValue);
+                faltasCounter=1;
+                optionsPoints[6]=30;
+                nE_qnt.innerHTML=faltasCounter;
+                nE_pts.innerHTML = "-"+optionsPoints[6]+"pts";
+                setTotal();
+                howManyFaltasValue.innerHTML=faltasCounter;
+                howManyFaltasValue.style.borderBottom="2px solid #011897";
+                howManyFaltas.appendChild(howManyFaltasClicker);
+                howManyFaltasClicker.style.borderRadius="20px";
+                howManyFaltasClicker.appendChild(howManyFaltasIncrement);
+                howManyFaltasIncrement.innerHTML="+";
+                howManyFaltasIncrement.id="min-increment";
+                howManyFaltasValue.classList.add("quantos");
+                howManyFaltasIncrement.classList.add("quantos");
+                howManyFaltasIncrement.classList.add("extra-clicker");
+                howManyFaltasClicker.appendChild(howManyFaltasDecrement);
+                howManyFaltasDecrement.innerHTML="-";
+                howManyFaltasDecrement.id="min-decrement";
+                howManyFaltasDecrement.classList.add("quantos");
+                howManyFaltasDecrement.classList.add("extra-clicker");
+                howManyFaltasDecrement.style.marginLeft="8px";
             }
             
             clickedOptions.push(nmrOption);
@@ -370,20 +557,38 @@ function optionsSelect(e) {
             
             if (nmrOption == 1) {
                 optionsPoints[nmrOption-1] = 30;
+                oC_bool.innerHTML="Não";
+                oC_pts.innerHTML="-30pts";
+                setTotal();
             }
             
             if (nmrOption == 2) {
-                optionsPoints[nmrOption-1] = 10;
+                howManyMin.removeChild(howManyMinP);
+                howManyMin.removeChild(howManyMinValue);
+                howManyMin.removeChild(howManyMinClicker);
+                minCounter=0;
+                optionsPoints[1]=0;
+                cM_bool.innerHTML="Sim";
+                cM_qnt.innerHTML="0";
+                cM_pts.innerHTML="0pts";
+                setTotal();
             }
             
             if (nmrOption == 3) {
                 optionsPoints[nmrOption-1] = 0;
+                cD_bool.innerHTML="Não";
+                cD_pts.innerHTML="0pts";
+                setTotal();
             }
             
             if (nmrOption == 4) {
                 howManyDiv.removeChild(howManyP);
                 howManyDiv.removeChild(dropdownGregarP);
                 dropdownGregarP.removeChild(gregarArrow);
+                aG_bool.innerHTML="Não";
+                aG_qnt.innerHTML="0";
+                aG_pts.innerHTML="0pts";
+                setTotal();
             }
             
             if (nmrOption == 5) {
@@ -392,6 +597,22 @@ function optionsSelect(e) {
                 howManyExtra.removeChild(howManyExtraClicker);
                 extraCounter=0;
                 optionsPoints[4]=0;
+                bE_bool.innerHTML="Não";
+                bE_qnt.innerHTML="0";
+                bE_pts.innerHTML="0pts";
+                setTotal();
+            }
+            
+            if (nmrOption == 7) {
+                howManyFaltas.removeChild(howManyFaltasP);
+                howManyFaltas.removeChild(howManyFaltasValue);
+                howManyFaltas.removeChild(howManyFaltasClicker);
+                faltasCounter=0;
+                optionsPoints[6]=0;
+                nE_bool.innerHTML="Sim";
+                nE_qnt.innerHTML="0";
+                nE_pts.innerHTML="0pts";
+                setTotal();
             }
             
             clickedOptions.splice(index,1);
@@ -406,8 +627,59 @@ function optionsSelect(e) {
             optionsBooleans[p] = false;
         }
     }
+    
+    e.stopPropagation();
 }
 
+// bebida mínima
+
+howManyMinIncrement.addEventListener("click", function() {
+    minCounter++;
+    howManyMinValue.innerHTML = minCounter;
+    optionsPoints[1]+=10;
+    cM_qnt.innerHTML=minCounter;
+    cM_pts.innerHTML="-"+optionsPoints[1]+"pts";
+    setTotal();
+});
+
+howManyMinDecrement.addEventListener("click", function() {
+    if (minCounter>1) {
+        minCounter--;  
+        optionsPoints[1]-=10;
+    }
+    else {
+        minCounter=1;
+    }
+    howManyMinValue.innerHTML = minCounter;
+    cM_qnt.innerHTML=minCounter;
+    cM_pts.innerHTML="-"+optionsPoints[1]+"pts";
+    setTotal();
+});
+
+// falta de elementos
+
+howManyFaltasIncrement.addEventListener("click", function() {
+    faltasCounter++;
+    howManyFaltasValue.innerHTML = faltasCounter;
+    optionsPoints[6]+=30;
+    nE_qnt.innerHTML=faltasCounter;
+    nE_pts.innerHTML="-"+optionsPoints[6]+"pts";
+    setTotal();
+});
+
+howManyFaltasDecrement.addEventListener("click", function() {
+    if (faltasCounter>1) {
+        faltasCounter--;  
+        optionsPoints[6]-=30;
+    }
+    else {
+        faltasCounter=1;
+    }
+    howManyFaltasValue.innerHTML = faltasCounter;
+    nE_qnt.innerHTML=faltasCounter;
+    nE_pts.innerHTML="-"+optionsPoints[6]+"pts";
+    setTotal();
+});
 
 // dropdown de gregar
 var clickedNmrGregar=false;
@@ -460,15 +732,21 @@ function selectNmrGregar(e) {
             e.target.classList.add("nmr-gregar-li-clicked");
             e.target.classList.remove("nmr-gregar-li");
             nmrGregar = e.target.innerHTML.split(">")[1].split("<")[0];
+            aG_qnt.innerHTML=nmrGregar;
             optionsPoints[3] = 50*parseInt(nmrGregar);
+            aG_pts.innerHTML="-"+optionsPoints[3]+"pts";
+            setTotal();
             clickedNmrGregar=true;
         }
         else {
             e.target.classList.add("nmr-gregar-li");
             e.target.classList.remove("nmr-gregar-li-clicked");
             nmrGregar = null;
-            optionsPoints[0];
+            optionsPoints[3] = 0;
             clickedNmrGregar=false;
+            aG_qnt.innerHTML=0;
+            aG_pts.innerHTML="0pts";
+            setTotal();
         }
         lastTarget = e.target;
     }
@@ -480,26 +758,37 @@ howManyExtraIncrement.addEventListener("click", function() {
     extraCounter++;
     howManyExtraValue.innerHTML = extraCounter;
     optionsPoints[4]+=20;
+    bE_qnt.innerHTML=extraCounter;
+    bE_pts.innerHTML="+"+optionsPoints[4]+"pts";
+    setTotal();
 });
 
 howManyExtraDecrement.addEventListener("click", function() {
-    extraCounter--;
-    if (extraCounter < 1) {
-        extraCounter=1;
-        howManyExtraDecrement.style.pointerEvents="none";
+    if (extraCounter>1) {
+        extraCounter--;  
+        optionsPoints[4]-=20;
     }
     else {
-        howManyExtraDecrement.style.pointerEvents="unset";
+        extraCounter=1;
     }
     howManyExtraValue.innerHTML = extraCounter;
-    optionsPoints[4]-=20;   
-})
+    bE_qnt.innerHTML=extraCounter;
+    bE_pts.innerHTML="+"+optionsPoints[4]+"pts";
+    setTotal();
+});
 
 // Observações
 
 var obs = document.getElementById("observacaoInput");
 var obsContent;
 
+function sumPoints() {
+    return (-optionsPoints[0])-optionsPoints[1]+optionsPoints[2]-optionsPoints[3]+optionsPoints[4]-optionsPoints[6];
+}
+
+function setTotal() {
+    total_pts.innerHTML=sumPoints()+"pts";
+}
 
 // SEND BUTTON
 
@@ -507,7 +796,7 @@ var send = document.getElementById("send-button");
 var clickedSend=false;
 
 send.addEventListener("click", function() {
-    totalPoints = -optionsPoints[0]-optionsPoints[1]+optionsPoints[2]-optionsPoints[3]+optionsPoints[4];
+    totalPoints = sumPoints();
     
     var today = new Date();
     var time = today.getDate() +'-'+(today.getMonth()+1)+'-'+ today.getFullYear() + " | " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -527,15 +816,10 @@ send.addEventListener("click", function() {
                 finalClickedEquipa+=clickedEquipa.charAt(g);
             }
         }
-        
-        console.log(finalClickedEquipa);
-        
         obsContent = obs.value;
-        console.log(totalPoints);
-        console.log(optionsPoints);
-        console.log({posto:currentPostoInt, ordemCorreta:optionsBooleans[0], ordemCorretaPts:optionsPoints[0], nmrElementosCorreto:optionsBooleans[1], nmrElementosCorretoPts:optionsPoints[1], desafio:optionsBooleans[2], desfioPts:optionsPoints[2], gregou:optionsBooleans[3], nmrGregar:parseInt(nmrGregar,10), nmrGregarPts:optionsPoints[3], extra:optionsBooleans[4], nmrExtras:extraCounter ,extraPts:optionsPoints[4], totalPts:totalPoints, obs:obsContent ,db:finalClickedEquipa, time:time});
-        
-        $.post("send-equipa.php", {posto:currentPostoInt, ordemCorreta:optionsBooleans[0], ordemCorretaPts:optionsPoints[0], nmrElementosCorreto:optionsBooleans[1], nmrElementosCorretoPts:optionsPoints[1], desafio:optionsBooleans[2], desfioPts:optionsPoints[2], gregou:optionsBooleans[3], nmrGregar:parseInt(nmrGregar,10), nmrGregarPts:optionsPoints[3], extra:optionsBooleans[4], nmrExtras:extraCounter ,extraPts:optionsPoints[4], totalPts:totalPoints, obs:obsContent ,db:finalClickedEquipa, time:time});  
+        console.log(); 
+        var connectedSuc = $.post("send-equipa.php", {posto:currentPostoInt, ordemCorreta:optionsBooleans[0], ordemCorretaPts:optionsPoints[0], bebidaMinima:optionsBooleans[1], nmrBebidaMinima:minCounter, bebidaMinimaPts:optionsPoints[1], desafio:optionsBooleans[2], desafioPts:optionsPoints[2], gregou:optionsBooleans[3], nmrGregar:parseInt(nmrGregar,10), nmrGregarPts:optionsPoints[3], extra:optionsBooleans[4], nmrExtras:extraCounter ,extraPts:optionsPoints[4], faltas:optionsBooleans[6], nmrFaltas:faltasCounter ,faltasPts:optionsPoints[6], totalPts:totalPoints, obs:obsContent ,db:finalClickedEquipa, time:time, user:username, ovo:optionsBooleans[5]});  
+        console.log(connectedSuc);
     }
     else {
         this.style.backgroundColor="#64F13B";
@@ -550,7 +834,6 @@ send.addEventListener("click", function() {
 var comment = document.getElementById("observacaoInput");
 
 window.onload = function() {
-    
     // give correct size to observacao
     comment.cols=(window.innerWidth/12)-1;  
     
@@ -559,30 +842,36 @@ window.onload = function() {
         selectedEquipaWrapper.style.padding="0px "+(window.innerWidth/4.3)+"px";
         optionsContainer.style.padding="0px "+(window.innerWidth/4.3)+"px";
     }
-    // TODO in case IP is not on the login list
-    var body = document.getElementsByTagName('BODY')[0];
     
-   $.getJSON('https://ipapi.co/json/', function(data) {
-        var authorized = false;
-        user = JSON.parse(JSON.stringify(data));
-        console.log(ipsAutorizados);
-        console.log(user.ip);
-        for (var d=0; d<ipsAutorizados.length; d++) {
-            if (ipsAutorizados[d] == user.ip) {
-                authorized=true;
-            }
+    var counter=-37;
+    var interval = setInterval(arrowToRight, 25);
+    var toRight=true;
+    
+    function arrowToRight() {
+        arrowWrapper.style.right=counter+"px";
+        if (toRight) {
+            counter-=1.5;      
         }
-        console.log(authorized);
-        if (!authorized) {
-            body.removeChild(document.getElementsByClassName('admin-navbar-container')[0]);
-            body.removeChild(document.getElementsByClassName('centered-content')[0]);
-            body.removeChild(document.getElementsByClassName('centered-content')[1]);
-            body.removeChild(document.getElementById('postos-container'));
-            window.location="login";
-        }      
-       
-   });
+        else {
+            counter+=1.5;
+        }
+        if (counter==-77.5) {
+            toRight=false;
+        }
+        if (counter==-37) {
+            clearInterval(interval);
+        }
+    }
 }
+
+$(document).ready(function() {
+    if (!conn) {
+        window.location="login";
+    }
+    else {
+        document.body.style.filter="unset";
+    }
+});
 
 // WINDOW ON RESIZE FUNCTION
 
@@ -600,4 +889,49 @@ window.onresize = function() {
 
 function commentsSectionInputResize() {
     comment.cols=(window.innerWidth/12)-1;   
+}
+
+// SIDE NAVBAR
+
+var arrowWrapper = document.getElementById("arrow-wrapper");
+var sideNavCont = document.getElementById("side-navbar-container");
+var arrow = document.getElementById("arrow");
+var clicked=false;
+var darkBack = document.getElementById("dark-back");
+var adminNavCont = document.getElementsByClassName("admin-navbar-container")[0];
+var adminNavLi = document.getElementById("admin-navbar-li");
+var adminNavA = document.getElementById("admin-navbar-a");
+
+arrowWrapper.addEventListener("click", showSideBar);
+darkBack.addEventListener("click", showSideBar);
+
+function showSideBar() {
+    if(!clicked) {
+        sideNavCont.style.left="0px";
+        arrowWrapper.style.right="-20px";
+        arrowWrapper.style.boxShadow="2px 0 6px 0px white";
+        arrow.className="left";
+        arrow.style.marginLeft="5px";
+        darkBack.classList.remove("hidden");
+        adminNavCont.style.borderBottom="2px solid white";
+        adminNavCont.style.boxShadow = "0px 0px 5px 1px white";
+        adminNavCont.style.backgroundColor="#011897";
+        adminNavLi.style.color="#64F13B";
+        adminNavA.style.color="#64F13B";
+        clicked=true;
+    }
+    else {
+        sideNavCont.style.left="-166px";
+        arrowWrapper.style.right="-36px";
+        arrowWrapper.style.boxShadow="unset";
+        arrow.className="right";
+        arrow.style.marginLeft="-5px";
+        darkBack.classList.add("hidden");
+        adminNavCont.style.borderBottom="unset";
+        adminNavCont.style.boxShadow = "0px 0px 5px 1px black";
+        adminNavCont.style.backgroundColor="#64F13B";
+        adminNavLi.style.color="#011897";
+        adminNavA.style.color="#011897";
+        clicked=false;
+    }
 }

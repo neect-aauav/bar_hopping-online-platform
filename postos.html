@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="styles/bootstrap.css">
         <link href="styles/navbar.css" rel="stylesheet" type="text/css" />
         <link href="styles/postos.css" rel="stylesheet" type="text/css" />
+        <link href="styles/footer.css" rel="stylesheet" type="text/css" />
     </head>
     
     <body>
@@ -20,7 +21,7 @@
                     <a href="/index">Ralli9/20</a>
                 </div>
                 <div id="navbar-right">
-                    <ul>
+                    <ul id="navbar-ul">
                         <li><a href="/equipas">Equipas</a></li>
                         <li class="active"><a href="/postos">Postos</a></li>
                         <li><a href="/premios">Prémios</a></li>
@@ -31,10 +32,53 @@
                 </div>
             </div>
         </div>
+        
+        <img class="centered-content" id="loading" src="styles/images/ralli9-20_logo.png">
+        
+        <div class="hidden" id="content-container">
+            <div id="lista-postos">
+                <ul>
+                    <li><div class="blue-mask"></div><img src="styles/images/aristides-hall.png" alt="aristides hall"><p class="centered-content">1</p></li>
+                    <li><div class="blue-mask"></div><img src="styles/images/autocarro-bar.png" alt="autocarro bar"><p class="centered-content">2</p></li>
+                    <li><div class="blue-mask"></div><img src="styles/images/macaca.png" alt="macaca"><p class="centered-content">3</p></li>
+                    <li><div class="blue-mask"></div><img src="styles/images/mac-donalds.png" alt="mac donalds"><p class="centered-content">4</p></li>
+                    <li><div class="blue-mask"></div><img src="styles/images/i-love-aveiro.png" alt="i love aveiro"><p class="centered-content">5</p></li>
+                    <li><div class="blue-mask"></div><img src="styles/images/ciência-viva.png" alt="ciência viva"><p class="centered-content">6</p></li>
+                </ul>
+            </div>
+            <div id="bottom-text">
+                <p>Seleciona um posto</p>
+            </div>
+        </div>
     
+        <footer style="border-top: 3px solid white;">
+            <ul>
+                <li>
+                    <ul id="footer-menu">
+                        <li><a href="equipas">Equipas</bt></li>
+                        <li><a href="postos">Postos</bt></li>
+                        <li><a href="premios">Prémios</bt></li>
+                        <li><a href="mapa">Mapa</bt></li>
+                        <li><a href="contacto">Contacto</bt></li>
+                        <li><a href="acerca">Acerca</bt></li>
+                        <li><a href="admin"><img src="styles/images/lock.png" style="width: 22px;margin-top: 6px;"></a></li>
+                    </ul>
+                </li>
+                <li style="border-top: 1.2px solid white; padding: 20px 0;">
+                    <ul id="nucleos">
+                        <li><a href="contacto#naessua"><img src="styles/images/NAE-ESSUA_AC_4.png" alt="NAE-ESSUA LOGO"></bt></li>
+                        <li><a href="contacto#naeisca"><img src="styles/images/NAE-ISCAA_AC_4.png" alt="NAE-ISCA LOGO"></bt></li>
+                        <li><a href="contacto#neg"><img src="styles/images/NEG_AC_4.png" alt="NEG LOGO"></bt></li>
+                        <li><a href="contacto#neect"><img src="styles/images/NEECT_AC_4.png" alt="NEECT LOGO"></bt></li>
+                    </ul>
+                </li>
+            </ul>
+        </footer>
+    
+        <script src="scripts/jquery.js"></script>
         <script src="scripts/postos.js"></script>
         <script src="scripts/navbar.js"></script>
-        <script src="scripts/jquery.js"></script>
+        <script src="scripts/footer.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
     

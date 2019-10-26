@@ -27,7 +27,7 @@ $(window).scroll(function() {
 
 $(document).ready(function() {
     if(window.innerWidth > 480) {
-        navbarCont.style.padding="0px "+(window.innerWidth/4.3)+"px";   
+        navbarCont.style.padding="0px "+(window.innerWidth/4.3)+"px"; 
     }
     
     if(window.innerWidth < 590) {
@@ -42,6 +42,6 @@ window.onresize = function() {
     }
     
     if(window.innerWidth < 590) {
-        navbarCont.style.padding="0";    
+        navbarCont.style.padding="0";   
     }
 }

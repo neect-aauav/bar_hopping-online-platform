@@ -116,7 +116,8 @@ i {
 }
 
 .curso {
-    font-size: 26px;    
+    font-size: 15px;
+    overflow: scroll;
 }
 
 .pontos {

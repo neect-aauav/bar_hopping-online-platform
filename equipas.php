@@ -1,8 +1,8 @@
 <?php
-    // Fetch from db Equipas
+    // Fetch from db _Equipas
     //$conn = mysqli_connect();
 
-    $sql = "SELECT * FROM Equipas;";
+    $sql = "SELECT * FROM _Equipas;";
     $result = mysqli_query($conn, $sql);
 
     $nome = array();
@@ -21,10 +21,20 @@
     $pontos = array();
     $gregar = array();
     $extra = array();
+    $ovo = array();
     
     for ($i = 0; $i < count($nome); $i++) {
         
         $currentNome = $nome[$i];
+        
+        if ($currentNome === "GRUA - Grupo de Rallys da Universidade de Aveiro") {
+            $currentNome = "GRUA  Grupo de Rallys da Universidade de Aveiro";
+        }
+        
+        if ($currentNome === "ESSUAr toda a noite!!") {
+            $currentNome = "ESSUAr toda a noite  ";
+        }
+        
         $finalNome="";
         
         for ($j=0; $j<strlen($currentNome); $j++) {
@@ -36,9 +46,14 @@
             }
         }
         
+        if ($finalNome === "Drink++") {
+            $finalNome = "Drink__";
+        }
+        
         $postosLocal = array();
         $gregarLocal = array();
         $extraLocal = array();
+        $ovoLocal = array();
         $total = 0;
         $sql2 = "SELECT * FROM $finalNome;";
         $result2 = mysqli_query($conn, $sql2);
@@ -48,12 +63,14 @@
             $gregarLocal[] = $row2['nmrGregar'];
             $extraLocal[] = $row2['nmrExtras'];
             $total+=$row2['totalPts'];
+            $ovoLocal[] = $row2['ovo'];
         }
         
         array_push($pontos, $total);
         array_push($postos, $postosLocal);
         array_push($gregar, $gregarLocal);
         array_push($extra, $extraLocal);
+        array_push($ovo, $ovoLocal[count($ovoLocal)-1]);
     }
 ?>
 
@@ -69,6 +86,7 @@
         <link rel="stylesheet" href="styles/bootstrap.css">
         <link href="styles/navbar.css" rel="stylesheet" type="text/css" />
         <link href="styles/equipas.css" rel="stylesheet" type="text/css" />
+        <link href="styles/footer.css" rel="stylesheet" type="text/css" />
     </head>
     
     <body>
@@ -113,8 +131,33 @@
             var postosArray = <?php echo json_encode($postos); ?>;
             var gregarArray = <?php echo json_encode($gregar); ?>;
             var extraArray = <?php echo json_encode($extra); ?>;
+            var ovoValue = <?php echo json_encode($ovo); ?>;
             
         </script>
+        
+        <footer style="border-top: 3px solid white;">
+            <ul>
+                <li>
+                    <ul id="footer-menu">
+                        <li><a href="equipas">Equipas</bt></li>
+                        <li><a href="postos">Postos</bt></li>
+                        <li><a href="premios">Prémios</bt></li>
+                        <li><a href="mapa">Mapa</bt></li>
+                        <li><a href="contacto">Contacto</bt></li>
+                        <li><a href="acerca">Acerca</bt></li>
+                        <li><a href="admin"><img src="styles/images/lock.png" style="width: 22px;margin-top: 6px;"></a></li>
+                    </ul>
+                </li>
+                <li style="border-top: 1.2px solid white; padding: 20px 0;">
+                    <ul id="nucleos">
+                        <li><a href="contacto#naessua"><img src="styles/images/NAE-ESSUA_AC_4.png" alt="NAE-ESSUA LOGO"></bt></li>
+                        <li><a href="contacto#naeisca"><img src="styles/images/NAE-ISCAA_AC_4.png" alt="NAE-ISCA LOGO"></bt></li>
+                        <li><a href="contacto#neg"><img src="styles/images/NEG_AC_4.png" alt="NEG LOGO"></bt></li>
+                        <li><a href="contacto#neect"><img src="styles/images/NEECT_AC_4.png" alt="NEECT LOGO"></bt></li>
+                    </ul>
+                </li>
+            </ul>
+        </footer>
         
         <script type="text/javascript" src="scripts/jquery.js"></script>
         <script type="text/javascript" src="scripts/navbar.js"></script>

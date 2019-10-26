@@ -1,0 +1,27 @@
+i {
+  border: solid #011897;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 7px;
+  transition: 0.4s;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(134deg);
+  -webkit-transform: rotate(134deg);
+}

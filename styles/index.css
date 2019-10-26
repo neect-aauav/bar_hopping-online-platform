@@ -19,6 +19,10 @@ html {
     scroll-behavior: smooth;
 }
 
+footer {
+    height: 100% !important;
+}
+
 a {
     color: #011897;
     text-decoration: none;
@@ -80,22 +84,6 @@ i {
   -webkit-transform: rotate(134deg);
 }
 
-footer {
-    background-color: #011897;
-    width: 100%;
-    height: 130px;
-    height: 160px;
-}
-
-footer>ul {
-    padding: 20px;
-    margin: 0;
-}
-
-footer>ul>li>a {
-    color: #64F13B;
-}
-
 /* Barra de navegação */
 
 .navbar-container {
@@ -107,7 +95,8 @@ footer>ul>li>a {
     cursor: pointer;
 }
 
-.themed-button:hover {
+.themed-button>a {
+    padding: 27px 14px;
 }
 
 #navbar-wrapper {
@@ -216,6 +205,7 @@ footer>ul>li>a {
     font-weight: 100;
     margin: 0;
     margin-top: -10px;
+    color: black;
 }
 
 #first-place>.pontos {

@@ -1,35 +1,22 @@
-<?php
-    //$conn = mysqli_connect();
-    
-    // send info to DB
-    $nome = $_POST['name'];
-    $surname = $_POST['surname'];
-    $curso = $_POST['curso'];
-    $nmec = $_POST['nmec'];
-    $mail = $_POST['mail'];
-    $user = $_POST['user'];
-    $pass = $_POST['pass'];
-    $hashedPass = password_hash($pass, PASSWORD_DEFAULT);
-    
-    if ($nome != "" && $surname != "" && $curso != "" && $nmec != "" && $mail != "" && $user != "" && $pass != "") {
-        $sql = "INSERT INTO _Registos (user, pass, nome, apelido, curso, nmec, mail) VALUES ('$user','$hashedPass','$nome','$surname', '$curso', '$nmec', '$mail');";
-
-        $connect = mysqli_query($conn, $sql);
-    }
-?>
-
 <html lang=pt>
     <head>
         <link rel="icon" type="image/png" href="styles/images/ralli9-20_logo.png">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-        <title>Ralli9/20</title>
+        <title>Ralli9/20 - Registo</title>
         <!-- Bootstrap minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="styles/bootstrap.css">
-        
+        <!--<link href="styles/login.css" rel="stylesheet" type="text/css" /> <!-- type é importante para alguns browsers reconhecerem o css -->
         <style>
+            /*label {
+                width: 87px;
+                clear: left;
+                text-align: right;
+                padding-right: 10px;
+            }*/
+            
             a, a:hover {
                 text-decoration: none;
                 float: right;
@@ -88,15 +75,22 @@
     </head>
   
     <body>
-        <form action="admin.php" method="post" id="loginform">
+        <form action="login.php" method="post" id="loginform">
             <a style="float:right;" href="index">Ralli9/20<i class="right"></i></a><br>
+            <label>Nome: </label><div><input type="text" name="name"></div><br>
+            <label>Apelido: </label><div><input type="text" name="surname"></div><br>
+            <label>Curso: </label><div><input type="text" name="curso"></div><br>
+            <label>NMec: </label><div><input type="number" name="nmec"></div><br>
+            <label>Mail UA: </label><div><input type="email" name="mail"></div><br>
             <label>Utilizador: </label><div><input type="text" name="user"></div><br>
             <label>Password: </label><div><input type="password" name="pass"></div><br>
-            <button type="submit" form="loginform" value="submit">Entrar</button>
+            <button id="send" type="submit" form="loginform" value="submit">Enviar</button>
             <button type="reset" form="loginform" value="reset">Repor</button>
         </form>
+        
+        <script>
+        </script>
         
         <script src="scripts/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
-  
