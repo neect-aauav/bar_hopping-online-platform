@@ -8,4 +8,4 @@ It is a platform built from scratch using html, css, javascript and php. In this
 After adding a team through the google form, their team is added to the ranking, on the index page, showing the team's name, place and points. On the equipas page their team is added to a list of teams where you can take a more detailed look at the team's information, such as team's name, points, members, which pubs (bars) they have been to already, the order of the pubs, etc.
 
 # postos
-In this page, you can find the information about the bars that will be on your route.
+In this page, you can find the information about the pubs that will be on your route.
